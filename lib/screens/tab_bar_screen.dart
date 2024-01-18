@@ -3,50 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../models/trip_model.dart';
 import 'categories_screen.dart';
-import 'favourits_screen.dart';
-//
-// import 'categories_screen.dart';
-// import 'favourits_screen.dart';
-//
-// class TabBarScreen extends StatelessWidget {
-//   const TabBarScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return DefaultTabController(
-//       length: 2,
-//       child: Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Cards'),
-//           bottom: const TabBar(
-//               tabs: [
-//                 Tab(
-//                   text: 'Categories',
-//                   icon: Icon(Icons.dashboard),
-//                 ),
-//                 Tab(
-//                   text: 'Favourits',
-//                   icon: Icon(Icons.favorite),
-//                 ),
-//               ],
-//           ),
-//         ),
-//         body: TabBarView(
-//           children: [
-//             CategoriesScreen(),
-//             FavouritsScreen(),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'favourites_screen.dart';
 
 class TabBarScreen extends StatefulWidget {
+  final List<Trip> favouriteTrips;
 
-  final List<Trip> favouritTrips;
-
-  TabBarScreen(this.favouritTrips);
+  const TabBarScreen(this.favouriteTrips, {super.key});
 
   @override
   State<TabBarScreen> createState() => _TabBarScreenState();
@@ -61,21 +23,23 @@ class _TabBarScreenState extends State<TabBarScreen> {
   void initState() {
     _screens = [
       {
-        'Screen': CategoriesScreen(),
+        'Screen': const CategoriesScreen(),
         'Title': 'Home',
       },
       {
-        'Screen': FavouritsScreen(widget.favouritTrips),
+        'Screen': FavouritesScreen(widget.favouriteTrips),
         'Title': 'Favourites',
       },
     ];
     super.initState();
   }
+
   void _onItemTapped(index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +47,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
         title: Text(_screens[_selectedIndex]['Title'] as String),
       ),
       body: _screens[_selectedIndex]['Screen'] as Widget,
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

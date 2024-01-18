@@ -1,16 +1,14 @@
-import 'package:cards/screens/app_drawer.dart';
-import 'package:cards/screens/categories_screen.dart';
 import 'package:flutter/material.dart';
 
-class FilterScreen extends StatefulWidget {
+import 'app_drawer.dart';
 
+class FilterScreen extends StatefulWidget {
   static const screenRoute = '/FilterScreen';
 
   final Function saveFilters;
-  Map<String, bool> currentFliters;
+  final Map<String, bool> currentFilters;
 
-  FilterScreen(this.currentFliters, this.saveFilters);
-
+  const FilterScreen(this.currentFilters, this.saveFilters, {super.key});
 
   @override
   State<FilterScreen> createState() => _FilterScreenState();
@@ -23,9 +21,9 @@ class _FilterScreenState extends State<FilterScreen> {
 
   @override
   void initState() {
-    _summer = widget.currentFliters['summer']!;
-    _winter = widget.currentFliters['winter']!;
-    _family = widget.currentFliters['family']!;
+    _summer = widget.currentFilters['summer']!;
+    _winter = widget.currentFilters['winter']!;
+    _family = widget.currentFilters['family']!;
     super.initState();
   }
 
@@ -46,18 +44,18 @@ class _FilterScreenState extends State<FilterScreen> {
       appBar: AppBar(
         title: Text(
           'Filter',
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
-            onPressed: (){
+            icon: const Icon(Icons.save),
+            onPressed: () {
               final selectedFilters = {
-                'summer' : _summer,
-                'winter' : _winter,
-                'family' : _family,
+                'summer': _summer,
+                'winter': _winter,
+                'family': _family,
               };
-            widget.saveFilters(selectedFilters);
+              widget.saveFilters(selectedFilters);
             },
           )
         ],
@@ -78,15 +76,16 @@ class _FilterScreenState extends State<FilterScreen> {
               _summer = newValue;
             });
           }),
-          buildSwitchListTile('\'For family\' trips',
-              'Show \'for family\' trips only', _family, (newValue) {
+          buildSwitchListTile(
+              '\'For family\' trips', 'Show \'for family\' trips only', _family,
+              (newValue) {
             setState(() {
               _family = newValue;
             });
           }),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
     );
   }
 }

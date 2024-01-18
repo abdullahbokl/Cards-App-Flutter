@@ -7,7 +7,7 @@ class CategoryItem extends StatelessWidget {
   final String title;
   final String imageUrl;
 
-  const CategoryItem(this.id, this.title, this.imageUrl);
+  const CategoryItem(this.id, this.title, this.imageUrl, {super.key});
 
   void selectCategory(BuildContext context) {
     Navigator.of(context).pushNamed(TripsScreen.screenRoute, arguments: {
@@ -32,16 +32,17 @@ class CategoryItem extends StatelessWidget {
             ),
           ),
           Container(
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              padding: const EdgeInsets.all(10),
-              alignment: Alignment.center,
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.headline6,
-              )),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            padding: const EdgeInsets.all(10),
+            alignment: Alignment.center,
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
         ],
       ),
     );

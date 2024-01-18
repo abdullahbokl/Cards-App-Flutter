@@ -1,8 +1,8 @@
-import 'package:cards/category_data.dart';
-import 'package:cards/screens/trip_details_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../category_data.dart';
 import '../models/trip_model.dart';
+import '../screens/trip_details_screen.dart';
 
 class TripItem extends StatelessWidget {
   final String id;
@@ -11,9 +11,11 @@ class TripItem extends StatelessWidget {
   final int duration;
   final TripType tripType;
   final Season season;
+
   // final Function removeItem;
 
-  TripItem({
+  const TripItem({
+    super.key,
     required this.id,
     required this.title,
     required this.imageUrl,
@@ -23,8 +25,10 @@ class TripItem extends StatelessWidget {
     // required this.removeItem,
   });
 
-  selectCategory (BuildContext context) {
-    Navigator.pushNamed(context, TripDetailScreen.screenRoute,
+  selectCategory(BuildContext context) {
+    Navigator.pushNamed(
+      context,
+      TripDetailScreen.screenRoute,
       arguments: id,
     );
   }
@@ -38,7 +42,7 @@ class TripItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(cornerRadius),
         ),
         elevation: 7,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Column(
           children: [
             Stack(
@@ -60,18 +64,18 @@ class TripItem extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   height: 250,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withOpacity(0),
-                        Colors.black.withOpacity(0.8),
-                      ],
-                      stops: const [
-                        0.5, 1,
-                      ],
-                    )
-                  ),
+                      gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withOpacity(0),
+                      Colors.black.withOpacity(0.8),
+                    ],
+                    stops: const [
+                      0.5,
+                      1,
+                    ],
+                  )),
                   child: Text(
                     title,
                     style: const TextStyle(
@@ -91,26 +95,34 @@ class TripItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.today, color: Colors.orangeAccent,),
-                      SizedBox(width: 10,),
-                      Text('${duration} days'),
+                      const Icon(
+                        Icons.today,
+                        color: Colors.orangeAccent,
+                      ),
+                      const SizedBox(width: 10),
+                      Text('$duration days'),
                     ],
                   ),
                   Row(
                     children: [
-                      Icon(Icons.sunny, color: Colors.orangeAccent,),
-                      SizedBox(width: 10,),
+                      const Icon(
+                        Icons.sunny,
+                        color: Colors.orangeAccent,
+                      ),
+                      const SizedBox(width: 10),
                       Text(season.name),
                     ],
                   ),
                   Row(
                     children: [
-                      Icon(Icons.family_restroom, color: Colors.orangeAccent,),
-                      SizedBox(width: 10,),
+                      const Icon(
+                        Icons.family_restroom,
+                        color: Colors.orangeAccent,
+                      ),
+                      const SizedBox(width: 10),
                       Text(tripType.name),
                     ],
                   ),
-
                 ],
               ),
             ),

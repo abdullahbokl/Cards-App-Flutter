@@ -1,4 +1,3 @@
-import 'package:cards/screens/categories_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'filter_screen.dart';
@@ -45,16 +44,17 @@ class AppDrawer extends StatelessWidget {
           buildListTile(
               context: context,
               title: 'Home',
-              icon: Icon(Icons.card_travel),
+              icon: const Icon(Icons.card_travel),
               onTapLink: () {
                 Navigator.of(context).pushReplacementNamed('/');
               }),
           buildListTile(
               context: context,
               title: 'Filter',
-              icon: Icon(Icons.filter),
+              icon: const Icon(Icons.filter),
               onTapLink: () {
-                Navigator.of(context).pushReplacementNamed(FilterScreen.screenRoute);
+                Navigator.of(context)
+                    .pushReplacementNamed(FilterScreen.screenRoute);
               }),
         ],
       ),

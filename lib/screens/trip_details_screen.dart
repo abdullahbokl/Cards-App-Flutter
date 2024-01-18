@@ -1,20 +1,22 @@
-import 'package:cards/category_data.dart';
 import 'package:flutter/material.dart';
+
+import '../category_data.dart';
 
 class TripDetailScreen extends StatelessWidget {
   static const screenRoute = '/TripDetailScreen';
 
-  final Function changeFavourits;
-  final Function _isFavourit;
-  TripDetailScreen(this.changeFavourits, this._isFavourit);
+  final Function changeFavourites;
+  final Function _isFavourite;
+
+  const TripDetailScreen(this.changeFavourites, this._isFavourite, {super.key});
 
   Widget buildSectionTitle(BuildContext context, String title) {
     return Container(
       alignment: Alignment.topLeft,
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.headline5,
+        style: Theme.of(context).textTheme.headlineSmall,
       ),
     );
   }
@@ -22,7 +24,7 @@ class TripDetailScreen extends StatelessWidget {
   Widget buildListViewController(Widget child) {
     return Container(
       height: 200,
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(cornerRadius),
@@ -34,7 +36,7 @@ class TripDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final id = ModalRoute.of(context)!.settings.arguments as String;
-    final selectedTrip = Trips_data.firstWhere((trip) => id == trip.id);
+    final selectedTrip = tripsData.firstWhere((trip) => id == trip.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +45,7 @@ class TripDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 300,
               width: double.infinity,
               child: Image.network(
@@ -74,31 +76,27 @@ class TripDetailScreen extends StatelessWidget {
                     ListTile(
                       leading: CircleAvatar(
                         child: Text(
-                          'day ${index+1}',
-                          style: TextStyle(
-                            fontSize: 12,
-                          ),
+                          'day ${index + 1}',
+                          style: const TextStyle(fontSize: 12),
                         ),
                       ),
                       title: Text(selectedTrip.program[index]),
                     ),
-                    Divider(),
+                    const Divider(),
                   ],
                 ),
               ),
             ),
-            SizedBox(
-              height: 100,
-            ),
+            const SizedBox(height: 100),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
-            _isFavourit(id) ? Icons.star : Icons.star_border,
+          _isFavourite(id) ? Icons.star : Icons.star_border,
         ),
-        onPressed: (){
-          changeFavourits(id);
+        onPressed: () {
+          changeFavourites(id);
         },
       ),
     );
